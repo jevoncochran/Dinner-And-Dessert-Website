@@ -1,0 +1,47 @@
+.cur-menu {
+    // border: 1px dashed black;
+    width: 100%;
+}
+
+.cur-menu-header {
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.cur-menu-category-container {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.cur-menu-label {
+    margin-bottom: 3%;
+}
+
+.cur-menu-card {
+    border: 1px solid white;
+    width: 100%;
+    border-radius: 0 !important;
+    margin-bottom: 5%;
+}
+
+.cur-menu-item-name {
+    text-transform: capitalize;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.cur-menu-item-price {
+    text-align: center;
+}
+
+.cur-menu-item-img {
+    width: 100%;
+    height: 200px;
+
+    object {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
