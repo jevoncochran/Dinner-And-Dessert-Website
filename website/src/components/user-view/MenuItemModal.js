@@ -7,7 +7,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { connect } from "react-redux";
 
 // action imports
-import { addItemToOrder, openOrderCard, updateOrder } from "../actions";
+import { addItemToOrder, openOrderCard, updateOrder } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
     paper: {

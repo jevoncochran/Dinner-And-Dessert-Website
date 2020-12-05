@@ -1,9 +1,9 @@
 import React from "react";
-import dessert from "../assets/dessert.jpg";
-import jerk_chicken from "../assets/jerk-chicken.jpg";
-import lambChopDinner from "../assets/lamb-chop-dinner.jpg";
-import macAndCheese from "../assets/mac-and-cheese.jpg";
-import "../styles/ImageShowcase.scss";
+import dessert from "../../assets/dessert.jpg";
+import jerk_chicken from "../../assets/jerk-chicken.jpg";
+import lambChopDinner from "../../assets/lamb-chop-dinner.jpg";
+import macAndCheese from "../../assets/mac-and-cheese.jpg";
+import "../../styles/ImageShowcase.scss";
 
 const ImageShowcase = () => {
     return (

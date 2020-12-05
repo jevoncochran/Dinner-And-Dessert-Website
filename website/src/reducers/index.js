@@ -1,3 +1,5 @@
+import { combineReducers } from "redux";
+
 import {
     ADD_TO_ORDER_START,
     ADD_TO_ORDER_SUCCESS,
@@ -10,6 +12,8 @@ import {
     SUBMIT_INQUIRY_START,
     SUBMIT_INQUIRY_SUCCESS
 } from "../actions";
+
+import { adminReducer } from "./admin-reducer";
 
 const initialState = {
     order: [],
@@ -83,3 +87,5 @@ export const orderReducer = (state = initialState, action) => {
             return state;
     }
 }
+
+export default combineReducers({ orderReducer, adminReducer });

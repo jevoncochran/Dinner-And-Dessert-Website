@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
-import "../styles/CurrentMenu.scss";
+import "../../styles/CurrentMenu.scss";
 import CurrencyFormatter from "currencyformatter.js";
 import MenuItemModal from "./MenuItemModal";
 import OrderCard from "./OrderCard";
