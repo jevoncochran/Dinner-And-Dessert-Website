@@ -1,12 +1,12 @@
 import React from "react";
-import logo from "../assets/dd-logo.jpg";
+import logo from "../../assets/dd-logo.jpg";
 import { Link } from "react-router-dom";
 import { FaFacebook, FaInstagram, FaShoppingBasket } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
-import "../styles/NavBar.scss";
+import "../../styles/NavBar.scss";
 import { connect } from "react-redux";
 
-import { openOrderCard } from "../actions";
+import { openOrderCard } from "../../actions";
 
 const NavBar = props => {
     return (

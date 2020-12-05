@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Inquiry.scss";
+import "../../styles/Inquiry.scss";
 import { connect } from "react-redux";
 
-import { submitInquiry } from "../actions";
+import { submitInquiry } from "../../actions";
 
 const Inquiry = props => {
     const [inquiry, setInquiry] = useState({
