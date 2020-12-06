@@ -113,7 +113,7 @@ const AdminDash = () => {
                           )
                         }
                       >
-                        x
+                        -
                       </button>
                     </div>
                   )}
@@ -182,7 +182,7 @@ const AdminDash = () => {
                           )
                         }
                       >
-                        x
+                        -
                       </button>
                     </div>
                   )}
@@ -251,7 +251,7 @@ const AdminDash = () => {
                           )
                         }
                       >
-                        x
+                        -
                       </button>
                     </div>
                   )}
