@@ -1,3 +1,79 @@
 .ad-headline {
-    text-align: center;
+  text-align: center;
+}
+
+.ad-menu-label {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.ad-menu-item-deets-cont {
+//   border: 1px dashed black;
+  height: 25%;
+}
+
+.ad-avail-status-div {
+  //   border: 1px dashed green;
+  height: 33%;
+}
+
+.ad-avail-green {
+  text-align: center;
+  color: green;
+}
+
+.ad-avail-red {
+  visibility: hidden;
+}
+
+.ad-menu-item-name {
+  // border: 1px dashed black;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  height: 33%;
+}
+
+.ad-menu-item-price {
+  // border: 1px dashed black;
+  height: 33%;
+  text-align: center;
+}
+
+.ad-menu-item-img {
+  width: 100%;
+  height: 220px;
+  margin-bottom: 2%;
+
+  object {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.ad-avail-btn-div {
+//   border: 1px dashed black;
+  width: 100%;
+  text-align: center;
+  height: 10%;
+  padding-top: 2px;
+  padding-bottom: 2px;
+
+  button {
+    border: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+  }
+}
+
+.ad-mark-avail-btn {
+  background-color: green;
+  color: #fff;
+}
+
+.ad-mark-unavail-btn {
+  background-color: red;
+  color: #000;
 }
