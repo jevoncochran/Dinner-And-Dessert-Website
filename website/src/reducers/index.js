@@ -13,7 +13,7 @@ import {
     SUBMIT_INQUIRY_SUCCESS
 } from "../actions";
 
-import { adminReducer } from "./admin-reducer";
+import { admin } from "./admin-reducer";
 
 const initialState = {
     order: [],
@@ -21,7 +21,7 @@ const initialState = {
     error: ''
 }
 
-export const orderReducer = (state = initialState, action) => {
+export const customer = (state = initialState, action) => {
     switch(action.type) {
         case ADD_TO_ORDER_START:
             return {
@@ -88,4 +88,4 @@ export const orderReducer = (state = initialState, action) => {
     }
 }
 
-export default combineReducers({ orderReducer, adminReducer });
+export default combineReducers({ customer, admin });

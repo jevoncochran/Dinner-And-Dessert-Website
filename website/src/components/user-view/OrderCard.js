@@ -56,7 +56,7 @@ const OrderCard = props => {
 
 const mapStateToProps = state => {
     return {
-        order: state.order
+        order: state.customer.order
     }
 }
 
