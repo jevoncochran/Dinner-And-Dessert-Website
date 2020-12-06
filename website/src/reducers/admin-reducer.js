@@ -1,28 +1,28 @@
-import { 
-    ADMIN_LOGIN_START,
-    ADMIN_LOGIN_SUCCESS
-} from "../actions";
+import { ADMIN_LOGIN_START, ADMIN_LOGIN_SUCCESS } from "../actions";
 
 const initialState = {
-    account: {},
-    isLoading: false,
-    error: ''
-}
+  account: {},
+  isLoading: false,
+  error: "",
+};
 
-export const adminReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case ADMIN_LOGIN_START:
-            return {
-                ...state,
-                isLoading: true
-            };
-        case ADMIN_LOGIN_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                account: action.payload
-            }
-        default:
-            return state;
-    }
-}
+export const admin = (state = initialState, action) => {
+  switch (action.type) {
+    case ADMIN_LOGIN_START:
+      return {
+        ...state,
+        isLoading: true,
+        // I can take this out once I have a sign out button
+        admin_access: false,
+      };
+    case ADMIN_LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        account: action.payload,
+        admin_access: true,
+      };
+    default:
+      return state;
+  }
+};

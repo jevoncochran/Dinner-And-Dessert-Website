@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
 
   const mapStateToProps = state => {
       return {
-          order: state.order
+          order: state.customer.order
       }
   }
 

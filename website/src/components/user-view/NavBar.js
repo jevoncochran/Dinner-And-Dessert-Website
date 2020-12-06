@@ -31,7 +31,7 @@ const NavBar = props => {
 
 const mapStateToProps = state => {
     return {
-        order: state.order
+        order: state.customer.order
     }
 }
 export default connect(mapStateToProps, { openOrderCard })(NavBar);

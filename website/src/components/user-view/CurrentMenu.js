@@ -151,7 +151,7 @@ const CurrentMenu = props => {
 
 const mapStateToProps = state => {
     return {
-        orderCardOpen: state.orderCardOpen,
+        orderCardOpen: state.customer.orderCardOpen,
     }
 }
 
