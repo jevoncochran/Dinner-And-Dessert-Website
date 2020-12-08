@@ -170,6 +170,7 @@ const AdminDash = () => {
                         alt="pic of menu item"
                       />
                     )}
+                    <p className="ad-menu-item-img-txt">Edit image</p>
                   </div>
                   {!item.available_today && (
                     <div className="ad-avail-btn-div">
@@ -247,6 +248,7 @@ const AdminDash = () => {
                         alt="pic of menu item"
                       />
                     )}
+                    <p className="ad-menu-item-img-txt">Edit image</p>
                   </div>
                   {!item.available_today && (
                     <div className="ad-avail-btn-div">
@@ -324,6 +326,7 @@ const AdminDash = () => {
                         alt="pic of menu item"
                       />
                     )}
+                    <p className="ad-menu-item-img-txt">{item.image ? 'Edit image' : 'Add image'}</p>
                   </div>
                   {!item.available_today && (
                     <div className="ad-avail-btn-div">
