@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CurrencyFormatter from "currencyformatter.js";
 import "../../styles/AdminDash.scss";
+import { storage } from "../../firebase";
 
 const AdminDash = () => {
   const [menu, setMenu] = useState({
@@ -12,6 +13,78 @@ const AdminDash = () => {
     sides: [],
     dessert: [],
   });
+
+  const [newItemImage, setNewItemImage] = useState(null);
+
+  const [uploadProgress, setUploadProgress] = useState(0);
+
+  const [imageToChange, setImageToChange] = useState(null);
+
+  const handleFileChange = (e) => {
+    if (e.target.files[0]) {
+      setNewItemImage(e.target.files[0]);
+    }
+  };
+
+  let inputFile = "";
+  const inputClick = (imageId) => {
+    setImageToChange(imageId);
+    inputFile.click();
+  };
+
+  useEffect(() => {
+    if (newItemImage) {
+      const uploadTask = storage
+        .ref(`menu-pics/${newItemImage.name}`)
+        .put(newItemImage);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setUploadProgress(progress);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("menu-pics")
+            .child(newItemImage.name)
+            .getDownloadURL()
+            .then((url) => {
+              console.log(url);
+              // setProfilePicUrl(url);
+              axios
+                .patch(`http://localhost:5000/api/menu/item${imageToChange}`, {
+                  image: url,
+                })
+                .then((res) => {
+                  console.log(res);
+                  axios.get("http://localhost:5000/api/menu").then((res) => {
+                    // console.log(res);
+                    setMenu({
+                      entrees: res.data.filter(
+                        (item) => item.category === "entree"
+                      ),
+                      sides: res.data.filter(
+                        (item) => item.category === "side"
+                      ),
+                      extras: res.data.filter(
+                        (item) => item.category === "extra"
+                      ),
+                      dessert: res.data.filter(
+                        (item) => item.dinner_or_dessert === "dessert"
+                      ),
+                    });
+                  });
+                });
+            });
+        }
+      );
+    }
+  }, [newItemImage]);
 
   useEffect(() => {
     axios
@@ -84,8 +157,19 @@ const AdminDash = () => {
                       })}
                     </p>
                   </div>
-                  <div className="ad-menu-item-img">
-                    <object data={item.image} alt="pic of menu item" />
+                  <div
+                    className="ad-menu-item-img"
+                    onClick={() => inputClick(item.id)}
+                  >
+                    {item.image && (
+                      <object data={item.image} alt="pic of menu item" />
+                    )}
+                    {!item.image && (
+                      <object
+                        data="https://via.placeholder.com/728x90.png?text=add+pic"
+                        alt="pic of menu item"
+                      />
+                    )}
                   </div>
                   {!item.available_today && (
                     <div className="ad-avail-btn-div">
@@ -113,7 +197,7 @@ const AdminDash = () => {
                           )
                         }
                       >
-                        x
+                        -
                       </button>
                     </div>
                   )}
@@ -153,8 +237,16 @@ const AdminDash = () => {
                       })}
                     </p>
                   </div>
-                  <div className="ad-menu-item-img">
-                    <object data={item.image} alt="pic of menu item" />
+                  <div className="ad-menu-item-img" onClick={inputClick}>
+                    {item.image && (
+                      <object data={item.image} alt="pic of menu item" />
+                    )}
+                    {!item.image && (
+                      <object
+                        data="https://via.placeholder.com/728x90.png?text=add+pic"
+                        alt="pic of menu item"
+                      />
+                    )}
                   </div>
                   {!item.available_today && (
                     <div className="ad-avail-btn-div">
@@ -182,7 +274,7 @@ const AdminDash = () => {
                           )
                         }
                       >
-                        x
+                        -
                       </button>
                     </div>
                   )}
@@ -222,8 +314,16 @@ const AdminDash = () => {
                       })}
                     </p>
                   </div>
-                  <div className="ad-menu-item-img">
-                    <object data={item.image} alt="pic of menu item" />
+                  <div className="ad-menu-item-img" onClick={inputClick}>
+                    {item.image && (
+                      <object data={item.image} alt="pic of menu item" />
+                    )}
+                    {!item.image && (
+                      <object
+                        data="https://via.placeholder.com/728x90.png?text=add+pic"
+                        alt="pic of menu item"
+                      />
+                    )}
                   </div>
                   {!item.available_today && (
                     <div className="ad-avail-btn-div">
@@ -251,7 +351,7 @@ const AdminDash = () => {
                           )
                         }
                       >
-                        x
+                        -
                       </button>
                     </div>
                   )}
@@ -261,6 +361,16 @@ const AdminDash = () => {
           </Grid>
         </div>
       )}
+
+      <input
+        className="ad-change-image-input"
+        type="file"
+        id="menu-item-img-file"
+        name="menu-item-img-file"
+        placeholder="test"
+        onChange={handleFileChange}
+        ref={(input) => (inputFile = input)}
+      />
     </div>
   );
 };
