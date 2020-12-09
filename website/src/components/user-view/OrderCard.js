@@ -38,7 +38,7 @@ const OrderCard = props => {
 
             <input className="order-note-input" type="text" placeholder="Special instructions..." />
 
-            <button className="pay-button" onClick={() => props.history.push('/payment')}>
+            <button className="pay-button" onClick={() => props.history.push('/checkout')}>
                 <div className="pay-btn-contents-container">
                     <p className="total-items-count">{orderCount}</p>
                     <p className="pay-btn-txt">Next step: pay</p>
