@@ -1,10 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import CurrencyFormatter from "currencyformatter.js";
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
 import "../../styles/Checkout.scss";
 
 const Checkout = (props) => {
+  // order subtotal derived from sum of (each item x item count)
+  const orderSubtotal = props.order.reduce(function (prev, cur) {
+    return prev + cur.total;
+  }, 0);
+
+  // tip percentage and tip amount
+  const [tipVal, setTipVal] = useState({
+    tipPerc: 0,
+    tip: 0,
+  });
+
+  // holds value for custom tip only when user types into custom input in tip div
+  const [customTip, setCustomTip] = useState(null);
+
+  // calculates tip from percentage radio buttons in tip div
+  // triggered by onclick on percentage radio buttons
+  const getSuggestedTip = () => {
+    let tipRadios = document.getElementsByName("tip");
+
+    tipRadios.forEach((ele) => {
+      if (ele.checked) {
+        setTipVal({
+          tipPerc: ele.value,
+          tip: orderSubtotal * ele.value,
+        });
+      }
+    });
+  };
+
+  // calculates tip from user input in tip div
+  // triggered by onclick on custom radio button
+  const getCustomTip = () => {
+    let custTipRad = document.getElementById("custom-tip");
+
+    setTipVal({
+      tip: custTipRad.value,
+      tipPerc: null,
+    });
+  };
+
+  const handleCustTipClick = () => {
+    let custTipRad = document.getElementById("custom-tip");
+    custTipRad.clicked = true;
+  };
+
+  // updates tip amount per value user types into input in tip div
+  const handleCustTipChange = (e) => {
+    // let custTipFormatted = CurrencyFormatter.format(e.target.value, { currency: 'USD' });
+    setCustomTip(e.target.value);
+    setTipVal({
+      tip: e.target.value,
+      tipPerc: null,
+    });
+  };
+
   return (
     <div>
       <NavBar />
@@ -92,11 +147,17 @@ const Checkout = (props) => {
               <hr />
               <div className="checkout-amount-div">
                 <p className="checkout-amount-text">Subtotal</p>
-                <p className="checkout-amount-text">$10.70</p>
+                <p className="checkout-amount-text">
+                  {CurrencyFormatter.format(orderSubtotal, { currency: "USD" })}
+                </p>
               </div>
               <div className="checkout-amount-div">
                 <p className="checkout-amount-text">Tax</p>
-                <p className="checkout-amount-text">$0.99</p>
+                <p className="checkout-amount-text">
+                  {CurrencyFormatter.format(orderSubtotal * 0.06, {
+                    currency: "USD",
+                  })}
+                </p>
               </div>
               <div className="checkout-tip-div">
                 <p className="checkout-tip-label">Add tip</p>
@@ -109,7 +170,7 @@ const Checkout = (props) => {
                         name="tip"
                         value={0.05}
                         className="checkout-tip-radio"
-                        onClick={null}
+                        onClick={getSuggestedTip}
                       />
                       <label for="tip1">5%</label>
                     </span>
@@ -120,7 +181,7 @@ const Checkout = (props) => {
                         name="tip"
                         value={0.1}
                         className="checkout-tip-radio"
-                        onClick={null}
+                        onClick={getSuggestedTip}
                       />
                       <label for="tip2">10%</label>
                     </span>
@@ -131,7 +192,7 @@ const Checkout = (props) => {
                         name="tip"
                         value={0.15}
                         className="checkout-tip-radio"
-                        onClick={null}
+                        onClick={getSuggestedTip}
                       />
                       <label for="tip3">15%</label>
                     </span>
@@ -142,29 +203,43 @@ const Checkout = (props) => {
                         name="tip"
                         value={null}
                         className="checkout-tip-radio"
-                        onClick={null}
+                        onClick={getCustomTip}
                       />
                       {/* <label for="custom-tip" style={{ fontSize: '0.8rem'}}>other</label> */}
                       <input
                         type="number"
-                        value={null}
+                        value={customTip}
                         min="0.50"
                         step="0.50"
-                        onClick={null}
-                        onChange={null}
+                        onClick={handleCustTipClick}
+                        onChange={handleCustTipChange}
                         className="checkout-custom-tip-input"
                       />
                     </span>
                   </form>
                   <div className="tip-total-div">
-                    <p>{CurrencyFormatter.format(3.0, { currency: "USD" })}</p>
+                    <p>
+                      {CurrencyFormatter.format(tipVal.tip, {
+                        currency: "USD",
+                      })}
+                    </p>
                   </div>
                 </div>
               </div>
               <hr />
               <div className="checkout-amount-div">
-                <p className="checkout-amount-text">Total</p>
-                <p className="checkout-amount-text">$11.69</p>
+                <p
+                  className="checkout-amount-text"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Total
+                </p>
+                <p className="checkout-amount-text">
+                  {CurrencyFormatter.format(
+                    orderSubtotal + orderSubtotal * 0.06 + tipVal.tip,
+                    { currency: "USD" }
+                  )}
+                </p>
               </div>
             </div>
             <button className="checkout-confirm-btn">Confirm Order</button>
