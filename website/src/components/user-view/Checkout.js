@@ -19,6 +19,8 @@ const Checkout = (props) => {
   // holds value for custom tip only when user types into custom input in tip div
   const [customTip, setCustomTip] = useState(null);
 
+  const [delivery, setDelivery] = useState(false);
+
   // calculates tip from percentage radio buttons in tip div
   // triggered by onclick on percentage radio buttons
   const getSuggestedTip = () => {
@@ -99,6 +101,7 @@ const Checkout = (props) => {
                 name="order_method"
                 value="pickup"
                 className="checkout-method-input"
+                onClick={() => setDelivery(false)}
               />
               <label htmlFor="pickup">Pickup</label>
               <br />
@@ -108,6 +111,7 @@ const Checkout = (props) => {
                 name="order_method"
                 value="delivery"
                 className="checkout-method-input"
+                onClick={() => setDelivery(true)}
               />
               <label htmlFor="female">Delivery</label>
             </div>
@@ -159,6 +163,14 @@ const Checkout = (props) => {
                   })}
                 </p>
               </div>
+              {delivery && (
+                <div className="checkout-amount-div">
+                  <p className="checkout-amount-text">Delivery fee</p>
+                  <p className="checkout-amount-text">
+                    {CurrencyFormatter.format(5.0, { currency: "USD" })}
+                  </p>
+                </div>
+              )}
               <div className="checkout-tip-div">
                 <p className="checkout-tip-label">Add tip</p>
                 <div className="checkout-tip-calc-div">
@@ -235,7 +247,10 @@ const Checkout = (props) => {
                   Total
                 </p>
                 <p className="checkout-amount-text">
-                  {CurrencyFormatter.format(
+                  {delivery ? CurrencyFormatter.format(
+                    orderSubtotal + orderSubtotal * 0.06 + tipVal.tip + 5,
+                    { currency: "USD" }
+                  ) : CurrencyFormatter.format(
                     orderSubtotal + orderSubtotal * 0.06 + tipVal.tip,
                     { currency: "USD" }
                   )}
