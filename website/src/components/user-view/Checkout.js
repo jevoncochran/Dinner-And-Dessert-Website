@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import NavBar from "./NavBar";
 import "../../styles/Checkout.scss";
 
+import { removeFromOrder, updateCount } from "../../actions";
+
 const Checkout = (props) => {
   // order subtotal derived from sum of (each item x item count)
   const orderSubtotal = props.order.reduce(function (prev, cur) {
@@ -70,18 +72,19 @@ const Checkout = (props) => {
         <div className="checkout-main-container">
           <div className="checkout-sub-container">
             <div className="checkout-cust-info-div">
+              <h3 className="checkout-div-label">Contact Info</h3>
               <div className="checkout-name-and-phone">
                 <input
                   type="text"
                   name="name"
                   placeholder="Name"
-                  className="checkout-cust-info-input"
+                  className="checkout-cust-info-input checkout-amount-text"
                 />
                 <input
                   type="text"
                   name="phone"
                   placeholder="Phone Number"
-                  className="checkout-cust-info-input"
+                  className="checkout-cust-info-input checkout-amount-text"
                 />
               </div>
               <br />
@@ -89,12 +92,12 @@ const Checkout = (props) => {
                 type="text"
                 name="address"
                 placeholder="Delivery address"
-                className="checkout-cust-info-input"
+                className="checkout-cust-info-input checkout-amount-text"
               />
             </div>
 
             <div className="checkout-method-div">
-              <h3>Method</h3>
+              <h3 className="checkout-div-label">Method</h3>
               <input
                 type="radio"
                 id="pickup"
@@ -103,7 +106,9 @@ const Checkout = (props) => {
                 className="checkout-method-input"
                 onClick={() => setDelivery(false)}
               />
-              <label htmlFor="pickup">Pickup</label>
+              <label htmlFor="pickup" className="checkout-amount-text">
+                Pickup
+              </label>
               <br />
               <input
                 type="radio"
@@ -113,26 +118,32 @@ const Checkout = (props) => {
                 className="checkout-method-input"
                 onClick={() => setDelivery(true)}
               />
-              <label htmlFor="female">Delivery</label>
+              <label htmlFor="female" className="checkout-amount-text">
+                Delivery
+              </label>
             </div>
           </div>
 
           <div className="checkout-sub-container">
             <div className="checkout-order-summary-div">
-              <h3>Order Summary</h3>
+              <h3 className="checkout-div-label">Order Summary</h3>
               {props.order.map((item) => (
                 <div key={item.id} className="checkout-order-item-div">
-                  <i
-                    class="fas fa-times-circle"
-                    style={{ width: "10%" }}
-                    onClick={null}
-                  ></i>
+                  <div className="checkout-remove-icon">
+                    <i
+                      class="fas fa-times-circle"
+                      style={{ width: "10%" }}
+                      onClick={() => props.removeFromOrder(item.id)}
+                    ></i>
+                  </div>
                   <p className="checkout-order-item-count">
                     <input
                       className="checkout-order-item-count-input"
                       type="number"
                       value={item.count}
-                      onChange={null}
+                      onChange={(e) =>
+                        props.updateCount(Number(e.target.value), item.id)
+                      }
                     />
                   </p>
                   <p className="checkout-order-item-name">{item.item}</p>
@@ -172,7 +183,9 @@ const Checkout = (props) => {
                 </div>
               )}
               <div className="checkout-tip-div">
-                <p className="checkout-tip-label">Add tip</p>
+                <p className="checkout-tip-label checkout-amount-text">
+                  Add tip
+                </p>
                 <div className="checkout-tip-calc-div">
                   <form className="checkout-tip-amount-div">
                     <span className="checkout-tip-radio-span">
@@ -247,17 +260,19 @@ const Checkout = (props) => {
                   Total
                 </p>
                 <p className="checkout-amount-text">
-                  {delivery ? CurrencyFormatter.format(
-                    orderSubtotal + orderSubtotal * 0.06 + tipVal.tip + 5,
-                    { currency: "USD" }
-                  ) : CurrencyFormatter.format(
-                    orderSubtotal + orderSubtotal * 0.06 + tipVal.tip,
-                    { currency: "USD" }
-                  )}
+                  {delivery
+                    ? CurrencyFormatter.format(
+                        orderSubtotal + orderSubtotal * 0.06 + tipVal.tip + 5,
+                        { currency: "USD" }
+                      )
+                    : CurrencyFormatter.format(
+                        orderSubtotal + orderSubtotal * 0.06 + tipVal.tip,
+                        { currency: "USD" }
+                      )}
                 </p>
               </div>
+              <button className="checkout-confirm-btn">Confirm Order</button>
             </div>
-            <button className="checkout-confirm-btn">Confirm Order</button>
           </div>
         </div>
       </div>
@@ -271,4 +286,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {})(Checkout);
+export default connect(mapStateToProps, { removeFromOrder, updateCount })(
+  Checkout
+);
