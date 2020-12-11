@@ -13,6 +13,12 @@ import {
   REMOVE_FROM_ORDER_SUCCESS,
   UPDATE_COUNT_START,
   UPDATE_COUNT_SUCCESS,
+  ADD_ORDER_START,
+  ADD_ORDER_SUCCESS,
+  PREPARE_ORDER_START,
+  PREPARE_ORDER_SUCCESS,
+  ADD_ORDER_DETAIL_START,
+  ADD_ORDER_DETAIL_SUCCESS,
 } from "../actions";
 
 const initialState = {
@@ -119,6 +125,39 @@ export const customer = (state = initialState, action) => {
             return item;
           }),
         ],
+      };
+    case ADD_ORDER_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ADD_ORDER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        order: [],
+        order_details: {},
+      };
+    case PREPARE_ORDER_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case PREPARE_ORDER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        order_details: action.payload,
+      };
+    case ADD_ORDER_DETAIL_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ADD_ORDER_DETAIL_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
       };
     default:
       return state;

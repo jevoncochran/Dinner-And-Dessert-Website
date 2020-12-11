@@ -4,6 +4,8 @@ import Home from "./components/user-view/Home";
 import Login from "./components/admin-view/Login";
 import AdminDash from "./components/admin-view/AdminDash";
 import Checkout from "./components/user-view/Checkout";
+import PayPal from "./components/user-view/PayPal";
+import OrderSuccess from "./components/user-view/OrderSuccess";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/admin" render={() => <AdminDash />} />
         <Route path="/checkout" component={Checkout} />
+        <Route path="/pay" component={PayPal} />
+        <Route path="/success" component={OrderSuccess} />
       </Switch>
     </Router>
   );

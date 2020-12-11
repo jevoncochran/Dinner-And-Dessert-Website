@@ -6,6 +6,9 @@ import {
     submitInquiry,
     removeFromOrder,
     updateCount,
+    addOrder,
+    prepareOrder,
+    addOrderDetail,
     ADD_TO_ORDER_START,
     ADD_TO_ORDER_SUCCESS,
     UPDATE_ORDER_START,
@@ -20,6 +23,12 @@ import {
     REMOVE_FROM_ORDER_SUCCESS,
     UPDATE_COUNT_START,
     UPDATE_COUNT_SUCCESS,
+    ADD_ORDER_START,
+    ADD_ORDER_SUCCESS,
+    PREPARE_ORDER_START,
+    PREPARE_ORDER_SUCCESS,
+    ADD_ORDER_DETAIL_START,
+    ADD_ORDER_DETAIL_SUCCESS
 } from "../actions/customer-actions";
 
 import {
@@ -37,6 +46,9 @@ export {
     adminLogin,
     removeFromOrder,
     updateCount,
+    addOrder,
+    prepareOrder,
+    addOrderDetail,
     ADD_TO_ORDER_START,
     ADD_TO_ORDER_SUCCESS,
     UPDATE_ORDER_START,
@@ -52,5 +64,11 @@ export {
     REMOVE_FROM_ORDER_START,
     REMOVE_FROM_ORDER_SUCCESS,
     UPDATE_COUNT_START,
-    UPDATE_COUNT_SUCCESS
+    UPDATE_COUNT_SUCCESS,
+    ADD_ORDER_START,
+    ADD_ORDER_SUCCESS,
+    PREPARE_ORDER_START,
+    PREPARE_ORDER_SUCCESS,
+    ADD_ORDER_DETAIL_START,
+    ADD_ORDER_DETAIL_SUCCESS
 }

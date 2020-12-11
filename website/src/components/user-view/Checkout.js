@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CurrencyFormatter from "currencyformatter.js";
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
 import "../../styles/Checkout.scss";
 
-import { removeFromOrder, updateCount } from "../../actions";
+import {
+  removeFromOrder,
+  updateCount,
+  addOrder,
+  prepareOrder,
+} from "../../actions";
 
 const Checkout = (props) => {
   // order subtotal derived from sum of (each item x item count)
@@ -22,6 +27,16 @@ const Checkout = (props) => {
   const [customTip, setCustomTip] = useState(null);
 
   const [delivery, setDelivery] = useState(false);
+
+  const [method, setMethod] = useState("pickup");
+
+  const [contact, setContact] = useState({
+    name: "",
+    address: "",
+    phone_number: "",
+  });
+
+  //   const [total, setTotal] = useState(delivery ? (orderSubtotal + tipVal.tip + (orderSubtotal * 0.06) + 5) : (orderSubtotal + tipVal.tip + (orderSubtotal * 0.06)));
 
   // calculates tip from percentage radio buttons in tip div
   // triggered by onclick on percentage radio buttons
@@ -64,6 +79,56 @@ const Checkout = (props) => {
     });
   };
 
+  const handleContactChange = (e) => {
+    setContact({
+      ...contact,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const generateDate = () => {
+    let d = new Date();
+
+    var month = (1 + d.getMonth()).toString();
+    month = month.length > 1 ? month : "0" + month;
+
+    var day = d.getDate().toString();
+    day = day.length > 1 ? day : "0" + day;
+
+    var year = d.getFullYear();
+
+    return month + "/" + day + "/" + year;
+  };
+
+  const prepForPayment = () => {
+    props.prepareOrder({
+      customer: contact.name,
+      date: generateDate(),
+      method: method,
+      subtotal: orderSubtotal,
+      tip: tipVal.tip,
+      tax: orderSubtotal * 0.06,
+      total: delivery
+        ? orderSubtotal + tipVal.tip + orderSubtotal * 0.06 + 5
+        : orderSubtotal + tipVal.tip + orderSubtotal * 0.06,
+      address: contact.address,
+      phone_number: contact.phone_number,
+    });
+    props.history.push("/pay");
+  };
+
+  useEffect(() => {
+    console.log("method: ", method);
+  }, [method]);
+
+  useEffect(() => {
+    if (delivery) {
+      setMethod("delivery");
+    } else {
+      setMethod("pickup");
+    }
+  }, [delivery]);
+
   return (
     <div>
       <NavBar />
@@ -79,11 +144,15 @@ const Checkout = (props) => {
                   name="name"
                   placeholder="Name"
                   className="checkout-cust-info-input checkout-amount-text"
+                  value={contact.name}
+                  onChange={handleContactChange}
                 />
                 <input
                   type="text"
-                  name="phone"
+                  name="phone_number"
                   placeholder="Phone Number"
+                  value={contact.phone_number}
+                  onChange={handleContactChange}
                   className="checkout-cust-info-input checkout-amount-text"
                 />
               </div>
@@ -92,6 +161,8 @@ const Checkout = (props) => {
                 type="text"
                 name="address"
                 placeholder="Delivery address"
+                value={contact.address}
+                onChange={handleContactChange}
                 className="checkout-cust-info-input checkout-amount-text"
               />
             </div>
@@ -271,7 +342,9 @@ const Checkout = (props) => {
                       )}
                 </p>
               </div>
-              <button className="checkout-confirm-btn">Confirm Order</button>
+              <button className="checkout-confirm-btn" onClick={prepForPayment}>
+                Confirm Order
+              </button>
             </div>
           </div>
         </div>
@@ -286,6 +359,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { removeFromOrder, updateCount })(
-  Checkout
-);
+export default connect(mapStateToProps, {
+  removeFromOrder,
+  updateCount,
+  addOrder,
+  prepareOrder,
+})(Checkout);
