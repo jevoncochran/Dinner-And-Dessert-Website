@@ -1,4 +1,9 @@
-import { ADMIN_LOGIN_START, ADMIN_LOGIN_SUCCESS } from "../actions";
+import {
+  ADMIN_LOGIN_START,
+  ADMIN_LOGIN_SUCCESS,
+  ADD_MENU_ITEM_START,
+  ADD_MENU_ITEM_SUCCESS,
+} from "../actions";
 
 const initialState = {
   account: {},
@@ -21,6 +26,16 @@ export const admin = (state = initialState, action) => {
         isLoading: false,
         account: action.payload,
         admin_access: true,
+      };
+    case ADD_MENU_ITEM_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ADD_MENU_ITEM_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
       };
     default:
       return state;
