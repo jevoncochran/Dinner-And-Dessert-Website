@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/Login.scss";
+import "./Login.scss";
 import { connect } from "react-redux";
 
-import { adminLogin } from "../../actions";
+import { adminLogin } from "../../../actions";
 
 const Login = (props) => {
   const [credentials, setCredentials] = useState({
@@ -28,12 +28,12 @@ const Login = (props) => {
 
   useEffect(() => {
     if (props.adminAccess && !props.isLoading) {
-        props.history.push('/admin');
+      props.history.push("/admin");
     }
 
-    console.log('this is running');
-    console.log('admin_access: ', props.adminAccess);
-  }, [props.adminAccess])
+    console.log("this is running");
+    console.log("admin_access: ", props.adminAccess);
+  }, [props.adminAccess]);
 
   return (
     <div className="login-page">
@@ -88,7 +88,7 @@ const Login = (props) => {
 const mapStateToProps = (state) => {
   return {
     adminAccess: state.admin.admin_access,
-    isLoading: state.isLoading
+    isLoading: state.isLoading,
   };
 };
 
