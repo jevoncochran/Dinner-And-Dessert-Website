@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/Inquiry.scss";
+import "../../../styles/Inquiry.scss";
 import { connect } from "react-redux";
 import emailjs from "emailjs-com";
 
-import { submitInquiry } from "../../actions";
+import { submitInquiry } from "../../../actions";
 
 const Inquiry = (props) => {
   const [inquiry, setInquiry] = useState({
@@ -105,10 +105,7 @@ const Inquiry = (props) => {
             onChange={handleInputChange}
           />
         </label>
-        <button
-          type="submit"
-          className="inq-submit-btn"
-        >
+        <button type="submit" className="inq-submit-btn">
           Submit
         </button>
       </form>
