@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from "react";
+import "./PayPal.scss";
 import { connect } from "react-redux";
 
-import { addOrder } from "../../actions";
+import { addOrder } from "../../../actions";
 
 const PayPal = (props) => {
   const paypal = useRef();
@@ -27,7 +28,7 @@ const PayPal = (props) => {
           const order = await actions.order.capture();
           console.log(order);
           props.addOrder(props.order_details, props.order);
-          props.history.push('/success');
+          props.history.push("/success");
         },
         onError: (err) => {
           console.log(err);
@@ -36,8 +37,8 @@ const PayPal = (props) => {
       .render(paypal.current);
   }, []);
   return (
-    <div>
-      <div ref={paypal}></div>
+    <div className="paypal">
+      <div className="paypal-options" ref={paypal}></div>
     </div>
   );
 };
@@ -45,7 +46,7 @@ const PayPal = (props) => {
 const mapStateToProps = (state) => {
   return {
     order_details: state.customer.order_details,
-    order: state.customer.order
+    order: state.customer.order,
   };
 };
 

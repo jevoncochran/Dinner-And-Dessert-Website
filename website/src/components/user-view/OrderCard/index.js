@@ -1,11 +1,11 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
 import { ClickAwayListener } from "@material-ui/core";
-import "../../styles/OrderCard.scss";
+import "../../../styles/OrderCard.scss";
 import CurrencyFormatter from "currencyformatter.js";
 import { connect } from "react-redux";
 
-import { closeOrderCard, removeFromOrder, updateCount } from "../../actions";
+import { closeOrderCard, removeFromOrder, updateCount } from "../../../actions";
 
 const OrderCard = (props) => {
   const orderCount = props.order.reduce(function (prev, cur) {

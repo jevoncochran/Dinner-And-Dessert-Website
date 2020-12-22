@@ -1,12 +1,12 @@
 import React, { useRef, useEffect } from "react";
-import lambChopVid from "../../assets/dd-lamb-chop-video.mov";
-import "../../styles/Home.scss";
+import lambChopVid from "../../../assets/dd-lamb-chop-video.mov";
+import "../../../styles/Home.scss";
 
 // component imports
-import CurrentMenu from "./CurrentMenu";
-import Inquiry from "./Inquiry";
-import ImageShowcase from "./ImageShowcase";
-import NavBar from "./NavBar";
+import CurrentMenu from "../CurrentMenu";
+import Inquiry from "../Inquiry";
+import ImageShowcase from "../ImageShowcase";
+import NavBar from "../NavBar";
 
 const Home = (props) => {
   // code to slow the video down

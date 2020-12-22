@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import CurrencyFormatter from "currencyformatter.js";
 import { connect } from "react-redux";
-import NavBar from "./NavBar";
-import "../../styles/Checkout.scss";
+import NavBar from "../NavBar";
+import "../../../styles/Checkout.scss";
 
 import {
   removeFromOrder,
   updateCount,
   addOrder,
   prepareOrder,
-} from "../../actions";
+} from "../../../actions";
 
 const Checkout = (props) => {
   // order subtotal derived from sum of (each item x item count)
