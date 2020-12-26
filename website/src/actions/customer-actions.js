@@ -1,4 +1,5 @@
 import axios from "axios";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 export const ADD_TO_ORDER_START = "ADD_TO_ORDER_START";
 export const ADD_TO_ORDER_SUCCESS = "ADD_TO_ORDER_SUCCESS";
@@ -20,6 +21,8 @@ export const PREPARE_ORDER_START = "PREPARE_ORDER_START";
 export const PREPARE_ORDER_SUCCESS = "PREPARE_ORDER_SUCCESS";
 export const ADD_ORDER_DETAIL_START = "ADD_ORDER_DETAIL_START";
 export const ADD_ORDER_DETAIL_SUCCESS = "ADD_ORDER_DETAIL_SUCCESS";
+
+const client = new W3CWebSocket("ws://127.0.0.1:8000");
 
 // add to customer order
 export const addItemToOrder = (item) => (dispatch) => {
@@ -69,20 +72,49 @@ export const updateCount = (newCount, itemId) => (dispatch) => {
   dispatch({ type: UPDATE_COUNT_SUCCESS, payload: { newCount, itemId } });
 };
 
+// executes when customer confirms and pays for order
 export const addOrder = (orderObj, itemsArr) => (dispatch) => {
   dispatch({ type: ADD_ORDER_START });
+  // adds new row to orders table in database
   axios
     .post("http://localhost:5000/api/orders", orderObj)
     .then((res) => {
-      console.log(res);
-      itemsArr.map((item) => {
-        axios
+      // maps over array of individual items in order
+      // adds new row to order_details table for each individual item in array 
+      // returns array of responses 
+      const orderItems = itemsArr.map((item) => {
+        return axios
           .post("http://localhost:5000/api/orders/details", {
             order_id: res.data.id,
             item_id: item.id,
             quantity: item.count,
           })
-          .then((res) => console.log(res))
+          .then((res) => {
+            console.log(res);
+            return res;
+          })
+          .catch((err) => console.log(err));
+      });
+      // gets array of responses from .map of array of individual items in order
+      Promise.all(orderItems).then((res) => {
+        console.log("order_id ", res[0].data.order_id);
+        // the API call pulls from the first response in the response array (res[0]) to get the order_id
+        // plus that order_id in as parameter for this call
+        axios
+          .get(
+            `http://localhost:5000/api/orders/${res[0].data.order_id}/display`
+          )
+          .then((res) => {
+            console.log(res);
+            // sends order info to web socket server so that admin can receive it
+            client.send(
+              JSON.stringify({
+                type: "message",
+                msg: "order received",
+                order_display: res.data,
+              })
+            );
+          })
           .catch((err) => console.log(err));
       });
     })
