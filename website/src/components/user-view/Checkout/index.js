@@ -3,6 +3,7 @@ import CurrencyFormatter from "currencyformatter.js";
 import { connect } from "react-redux";
 import NavBar from "../NavBar";
 import "../../../styles/Checkout.scss";
+// import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 import {
   removeFromOrder,
@@ -10,6 +11,8 @@ import {
   addOrder,
   prepareOrder,
 } from "../../../actions";
+
+// const client = new W3CWebSocket("ws://127.0.0.1:8000");
 
 const Checkout = (props) => {
   // order subtotal derived from sum of (each item x item count)
@@ -109,17 +112,13 @@ const Checkout = (props) => {
       tip: tipVal.tip,
       tax: orderSubtotal * 0.06,
       total: delivery
-        ? orderSubtotal + tipVal.tip + orderSubtotal * 0.06 + 5
-        : orderSubtotal + tipVal.tip + orderSubtotal * 0.06,
+        ? (orderSubtotal + tipVal.tip + orderSubtotal * 0.06 + 5).toFixed(2)
+        : (orderSubtotal + tipVal.tip + orderSubtotal * 0.06).toFixed(2),
       address: contact.address,
       phone_number: contact.phone_number,
     });
     props.history.push("/pay");
   };
-
-  useEffect(() => {
-    console.log("method: ", method);
-  }, [method]);
 
   useEffect(() => {
     if (delivery) {
@@ -128,6 +127,21 @@ const Checkout = (props) => {
       setMethod("pickup");
     }
   }, [delivery]);
+
+  // useEffect(() => {
+  //   client.onopen = () => {
+  //     console.log("customer connected to web socket");
+  //   };
+  // });
+
+  // const onTestButtonClick = () => {
+  //   client.send(
+  //     JSON.stringify({
+  //       type: "message",
+  //       msg: "order received",
+  //     })
+  //   );
+  // };
 
   return (
     <div>
@@ -345,6 +359,7 @@ const Checkout = (props) => {
               <button className="checkout-confirm-btn" onClick={prepForPayment}>
                 Confirm Order
               </button>
+              {/* <button onClick={onTestButtonClick}>Test Button</button> */}
             </div>
           </div>
         </div>
