@@ -11,7 +11,7 @@ const MenuItemCard = (props) => {
           <div className="ad-avail-status-div">
             <p
               className={
-                props.item.available_today == 1
+                props.item.available_today === 1
                   ? "ad-avail-green"
                   : "ad-avail-red"
               }
@@ -34,12 +34,13 @@ const MenuItemCard = (props) => {
           onClick={() => props.inputClick(props.item.id)}
         >
           {props.item.image && (
-            <object data={props.item.image} alt="pic of menu item" />
+            <object data={props.item.image} alt="pic of menu item" aria-label="menu item image" />
           )}
           {!props.item.image && (
             <object
               data="https://via.placeholder.com/728x90.png?text=add+pic"
               alt="pic of menu item"
+              aria-label="menu item image placeholder"
             />
           )}
           <p className="ad-menu-item-img-txt">Edit image</p>

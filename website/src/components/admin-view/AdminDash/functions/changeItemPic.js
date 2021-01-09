@@ -5,12 +5,12 @@ export const changeItemPic = async (image, itemId) => {
   const uploadTask = storage.ref(`menu-pics/${image.name}`).put(image);
   uploadTask.on(
     "state_changed",
-    (snapshot) => {
-      const progress = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      );
+    // (snapshot) => {
+      // const progress = Math.round(
+      //   (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      // );
       //   setUploadProgress(progress);
-    },
+    // },
     (error) => {
       console.log(error);
     },

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Modal from "@material-ui/core/Modal";
 import { connect } from "react-redux";
 import { addMenuItem } from "../../../../actions";
 
 const NewItemModal = (props) => {
-
   const [newItem, setNewItem] = useState({
     item: "",
     price: "",

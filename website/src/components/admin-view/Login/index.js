@@ -33,7 +33,7 @@ const Login = (props) => {
 
     console.log("this is running");
     console.log("admin_access: ", props.adminAccess);
-  }, [props.adminAccess]);
+  }, [props.adminAccess, props.history, props.isLoading]);
 
   return (
     <div className="login-page">

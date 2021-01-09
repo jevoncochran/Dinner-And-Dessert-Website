@@ -99,7 +99,11 @@ const CurrentMenu = (props) => {
                     </p>
                   </div>
                   <div className="cur-menu-item-img">
-                    <object data={item.image} alt="pic of menu item" />
+                    <object
+                      data={item.image}
+                      alt="pic of menu item"
+                      aria-label="menu item image"
+                    />
                   </div>
                 </Card>
               </Grid>
@@ -144,7 +148,11 @@ const CurrentMenu = (props) => {
                     </p>
                   </div>
                   <div className="cur-menu-item-img">
-                    <object data={item.image} alt="pic of menu item" />
+                    <object
+                      data={item.image}
+                      alt="pic of menu item"
+                      aria-label="menu item image"
+                    />
                   </div>
                 </Card>
               </Grid>
@@ -189,7 +197,11 @@ const CurrentMenu = (props) => {
                     </p>
                   </div>
                   <div className="cur-menu-item-img">
-                    <object data={item.image} alt="pic of menu item" />
+                    <object
+                      data={item.image}
+                      alt="pic of menu item"
+                      aria-label="menu item image"
+                    />
                   </div>
                 </Card>
               </Grid>

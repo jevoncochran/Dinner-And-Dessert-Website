@@ -61,7 +61,7 @@ const AdminDash = (props) => {
     if (newItemImage) {
       changeItemPic(newItemImage, imageToChange);
     }
-  }, [newItemImage]);
+  }, [newItemImage, imageToChange]);
 
   useEffect(() => {
     getAllMenuItems().then((res) => {
