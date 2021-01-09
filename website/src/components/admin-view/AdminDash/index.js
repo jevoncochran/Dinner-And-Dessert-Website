@@ -5,7 +5,6 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 import NewItemModal from "./subcomponents/NewItemModal";
 import { getAllMenuItems } from "./functions/getAllMenuItems.js";
 import { changeItemPic } from "./functions/changeItemPic";
-// import { editDayAvailability } from "./functions/editDayAvailability";
 import MenuCategorySection from "./subcomponents/MenuCategorySection";
 import axios from "axios";
 
@@ -40,7 +39,7 @@ const AdminDash = (props) => {
 
   const editDayAvailability = (newStatus, itemId) => {
     axios
-      .patch(`http://localhost:5000/api/menu/item${itemId}`, newStatus)
+      .patch(`https://dinner-and-dessert.herokuapp.com/api/menu/item${itemId}`, newStatus)
       .then(() => {
         getAllMenuItems().then((res) => {
           setMenu({

@@ -10,7 +10,10 @@ export const OPEN_NEW_ITEM_MODAL_START = "OPEN_NEW_ITEM_MODAL_START";
 export const adminLogin = (credentials) => (dispatch) => {
   dispatch({ type: ADMIN_LOGIN_START });
   axios
-    .post("http://localhost:5000/api/auth/login", credentials)
+    .post(
+      "https://dinner-and-dessert.herokuapp.com/api/auth/login",
+      credentials
+    )
     .then((res) => {
       console.log(res);
       dispatch({ type: ADMIN_LOGIN_SUCCESS, payload: res.data.account });
@@ -24,7 +27,7 @@ export const adminLogin = (credentials) => (dispatch) => {
 export const addMenuItem = (item) => (dispatch) => {
   dispatch({ type: ADD_MENU_ITEM_START });
   axios
-    .post("http://localhost:5000/api/menu", item)
+    .post("https://dinner-and-dessert.herokuapp.com/api/menu", item)
     .then((res) => {
       console.log(res);
       dispatch({ type: ADD_MENU_ITEM_SUCCESS });

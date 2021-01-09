@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getAllMenuItems = async () => {
   const response = await axios
-    .get("http://localhost:5000/api/menu")
+    .get("https://dinner-and-dessert.herokuapp.com/api/menu")
     .catch((err) => {
       console.log(err);
     });
