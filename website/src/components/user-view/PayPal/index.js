@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { addOrder } from "../../../actions";
 
-const PayPal = ({ order_details, order }) => {
+const PayPal = (props) => {
   const paypal = useRef();
 
   useEffect(() => {
@@ -18,16 +18,16 @@ const PayPal = ({ order_details, order }) => {
                 description: "Dinner and Dessert",
                 amount: {
                   currency_code: "USD",
-                  value: order_details.total,
+                  value: props.order_details.total,
                 },
               },
             ],
           });
         },
         onApprove: async (data, actions) => {
-          const newOrder = await actions.order.capture();
-          console.log(newOrder);
-          props.addOrder(order_details, order);
+          const order = await actions.order.capture();
+          console.log(order);
+          props.addOrder(props.order_details, props.order);
           props.history.push("/success");
         },
         onError: (err) => {
@@ -35,7 +35,7 @@ const PayPal = ({ order_details, order }) => {
         },
       })
       .render(paypal.current);
-  }, [order_details, order]);
+  }, [props.order_details, props.order]);
 
   return (
     <div className="paypal">
