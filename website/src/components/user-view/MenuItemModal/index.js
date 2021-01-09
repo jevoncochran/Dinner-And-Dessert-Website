@@ -87,7 +87,13 @@ const MenuItemModal = (props) => {
       price: props.menuItem.price,
       total: props.menuItem.price * count,
     });
-  }, [count, props.openMode]);
+  }, [
+    count,
+    props.openMode,
+    props.menuItem.id,
+    props.menuItem.name,
+    props.menuItem.price,
+  ]);
 
   return (
     <div>
@@ -101,6 +107,7 @@ const MenuItemModal = (props) => {
           <object
             data={props.menuItem.image}
             alt="pic of menu item"
+            aria-label="menu item image"
             style={{
               width: "100%",
               height: "45%",
