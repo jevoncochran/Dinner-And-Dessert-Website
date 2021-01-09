@@ -27,6 +27,7 @@ const NavBar = (props) => {
         <a
           href="https://www.instagram.com/dinneranddessertllc/"
           target="_blank"
+          rel="noopener noreferrer"
           className="nav-social-link"
         >
           <FaInstagram />
@@ -34,6 +35,7 @@ const NavBar = (props) => {
         <a
           href="https://www.facebook.com/kendra.carpenter.7503"
           target="_blank"
+          rel="noopener noreferrer"
           className="nav-social-link"
         >
           <FaFacebook />
@@ -41,6 +43,7 @@ const NavBar = (props) => {
         <a
           href="https://www.google.com"
           target="_blank"
+          rel="noopener noreferrer"
           className="nav-social-link"
         >
           <HiOutlineMail />
