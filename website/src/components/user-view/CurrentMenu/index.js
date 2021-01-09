@@ -42,7 +42,7 @@ const CurrentMenu = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/menu/current")
+      .get("https://dinner-and-dessert.herokuapp.com/api/menu/current")
       .then((res) => {
         // console.log(res);
         setMenu({

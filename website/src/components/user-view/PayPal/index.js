@@ -35,7 +35,7 @@ const PayPal = (props) => {
         },
       })
       .render(paypal.current);
-  }, [props.order_details, props.order]);
+  }, [props]);
 
   return (
     <div className="paypal">
