@@ -22,7 +22,7 @@ export const changeItemPic = async (image, itemId) => {
         .then((url) => {
           console.log(url);
           // setProfilePicUrl(url);
-          axios.patch(`http://localhost:5000/api/menu/item${itemId}`, {
+          axios.patch(`https://dinner-and-dessert.herokuapp.com/api/menu/item${itemId}`, {
             image: url,
           });
         });

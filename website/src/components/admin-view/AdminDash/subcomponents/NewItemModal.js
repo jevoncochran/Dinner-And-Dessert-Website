@@ -1,34 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Modal from "@material-ui/core/Modal";
-import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { addMenuItem } from "../../../../actions";
 
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     position: "relative",
-//     //   top: '50%',
-//     //   left: '50%',
-//     width: 500,
-//     height: "85vh",
-//     minHeight: "30vh",
-//     backgroundColor: theme.palette.background.paper,
-//     border: "2px solid #000",
-//     boxShadow: theme.shadows[5],
-//     outline: "none",
-//     //   padding: theme.spacing(2, 4, 3),
-//   },
-// }));
-
 const NewItemModal = (props) => {
-  // const classes = useStyles();
-
-  // const modalStyle = {
-  //   position: "absolute",
-  //   left: "50%",
-  //   top: "50%",
-  //   transform: "translate(-50%, -50%)",
-  // };
 
   const [newItem, setNewItem] = useState({
     item: "",
@@ -49,10 +24,6 @@ const NewItemModal = (props) => {
     props.addMenuItem(newItem);
     props.closeModal();
   };
-
-  // useEffect(() => {
-  //   console.log("new item: ", newItem);
-  // }, [newItem]);
 
   return (
     <div>

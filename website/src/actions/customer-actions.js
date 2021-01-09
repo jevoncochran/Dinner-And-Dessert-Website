@@ -52,7 +52,7 @@ export const closeOrderCard = () => (dispatch) => {
 export const submitInquiry = (inquiry) => (dispatch) => {
   dispatch({ type: SUBMIT_INQUIRY_START });
   axios
-    .post("http://localhost:5000/api/inquiries", inquiry)
+    .post("https://dinner-and-dessert.herokuapp.com/api/inquiries", inquiry)
     .then((res) => {
       console.log(res);
       dispatch({ type: SUBMIT_INQUIRY_SUCCESS });
@@ -77,14 +77,14 @@ export const addOrder = (orderObj, itemsArr) => (dispatch) => {
   dispatch({ type: ADD_ORDER_START });
   // adds new row to orders table in database
   axios
-    .post("http://localhost:5000/api/orders", orderObj)
+    .post("https://dinner-and-dessert.herokuapp.com/api/orders", orderObj)
     .then((res) => {
       // maps over array of individual items in order
-      // adds new row to order_details table for each individual item in array 
-      // returns array of responses 
+      // adds new row to order_details table for each individual item in array
+      // returns array of responses
       const orderItems = itemsArr.map((item) => {
         return axios
-          .post("http://localhost:5000/api/orders/details", {
+          .post("https://dinner-and-dessert.herokuapp.com/api/orders/details", {
             order_id: res.data.id,
             item_id: item.id,
             quantity: item.count,
@@ -102,7 +102,7 @@ export const addOrder = (orderObj, itemsArr) => (dispatch) => {
         // plus that order_id in as parameter for this call
         axios
           .get(
-            `http://localhost:5000/api/orders/${res[0].data.order_id}/display`
+            `https://dinner-and-dessert.herokuapp.com/orders/${res[0].data.order_id}/display`
           )
           .then((res) => {
             console.log(res);
@@ -132,7 +132,7 @@ export const prepareOrder = (orderObj) => (dispatch) => {
 export const addOrderDetail = (entry) => (dispatch) => {
   dispatch({ type: ADD_ORDER_DETAIL_START });
   axios
-    .post("http://localhost:5000/api/orders/details", entry)
+    .post("https://dinner-and-dessert.herokuapp.com/api/orders/details", entry)
     .then((res) => {
       console.log(res);
       dispatch({ type: ADD_ORDER_DETAIL_SUCCESS });
